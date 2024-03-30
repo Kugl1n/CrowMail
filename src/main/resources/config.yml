@@ -1,12 +1,19 @@
-receive-delay: 100
-despawn-time: 100
+distance-modifier: 1
+despawn-delay: 100
+resend-delay: 100
+different-dimension-delay: 1000
+
+on-join-delay: 100
+on-gamemode-delay: 100
+on-enable-letters-delay: 100
+
 cem-letter: 100
 cem-anonimous-letter: 101
 
 pigeon-variant: BLUE
 crow-variant: GRAY
 
-blocked-gamemodes: []
+blocked-gamemodes: [SPECTATOR]
 
 message-plugin-prefix: §8§l[Crow§f§lMail§8§l] §r
 message-inventory-full: §7Seu inventario está cheio.

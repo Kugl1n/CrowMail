@@ -10,8 +10,13 @@ import com.crow.CrowMail;
 
 public class ConfigLoader {
 
-    public static int RECEIVE_DELAY;
-    public static int DESPAWN_TIME;
+    public static int DISTANCE_MODIFIER;
+    public static int DESPAWN_DELAY;
+    public static int RESEND_DELAY;
+    public static int ON_JOIN_DELAY;
+    public static int ON_GAMEMODE_DELAY;
+    public static int ON_ENABLE_LETTERS_DELAY;
+    public static int DIFFERENT_DIMENSION_DELAY;
 
     public static int CEM_LETTER;
     public static int CEM_ANONIMOUS_LETTER;
@@ -37,16 +42,19 @@ public class ConfigLoader {
     public static Parrot.Variant CROW_VARIANT;
 
     public static List<GameMode> BLOCKED_GAMEMODES;
-    
-
-
 
     public static void loadConfigs() {
 
         CrowMail plugin = CrowMail.getInstance();
 
-        RECEIVE_DELAY = plugin.getConfig().getInt("receive-delay");
-        DESPAWN_TIME = plugin.getConfig().getInt("despawn-time");
+        DISTANCE_MODIFIER = plugin.getConfig().getInt("receive-delay");
+        DESPAWN_DELAY = plugin.getConfig().getInt("despawn-delay");
+        RESEND_DELAY = plugin.getConfig().getInt("resend-delay");
+        DIFFERENT_DIMENSION_DELAY = plugin.getConfig().getInt("different-dimension-delay");
+
+        ON_JOIN_DELAY = plugin.getConfig().getInt("on-join-delay");
+        ON_GAMEMODE_DELAY = plugin.getConfig().getInt("on-gamemode-delay");
+        ON_ENABLE_LETTERS_DELAY = plugin.getConfig().getInt("on-enable-letters-delay");
 
         CEM_LETTER = plugin.getConfig().getInt("cem-letter");
         CEM_ANONIMOUS_LETTER = plugin.getConfig().getInt("cem-anonimous-letter");

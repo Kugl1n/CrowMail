@@ -72,12 +72,12 @@ public class Crow {
                 remove();
 
                 if (!isDelivered && reciever.isOnline()) {
-                    OutgoingLetter.send(reciever, anonimous);
+                    OutgoingLetter.send(reciever, anonimous, ConfigLoader.RESEND_DELAY);
                 }
             
             }
             
-        }.runTaskLater(CrowMail.getInstance(), ConfigLoader.DESPAWN_TIME);
+        }.runTaskLater(CrowMail.getInstance(), ConfigLoader.DESPAWN_DELAY);
 
     }
 

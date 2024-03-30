@@ -62,7 +62,7 @@ public class PlayerE implements Listener{
             Player player = joinEvent.getPlayer();
 
             if (OutgoingLetter.outgoingLetters.get(player.getUniqueId()).size() > 0) {
-                OutgoingLetter.send(player, false);
+                OutgoingLetter.send(player, false, ConfigLoader.ON_JOIN_DELAY);
 
             }
         }
@@ -71,11 +71,11 @@ public class PlayerE implements Listener{
     @EventHandler
     public void onGamemode(PlayerGameModeChangeEvent event) {
 
-        if (event.getPlayer().isOnline()) {
+        if (event.getPlayer().isOnline() && ConfigLoader.BLOCKED_GAMEMODES.contains(event.getPlayer().getGameMode())) {
             Player player = event.getPlayer();
 
             if (OutgoingLetter.outgoingLetters.get(player.getUniqueId()).size() > 0) {
-                OutgoingLetter.send(player, false);
+                OutgoingLetter.send(player, false, ConfigLoader.ON_GAMEMODE_DELAY);
 
             }
         }

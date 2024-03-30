@@ -17,6 +17,7 @@ import com.crow.letter.OutgoingLetter;
 public class CommandE implements CommandExecutor{
 
     @Override
+    @SuppressWarnings("deprecation") 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 
@@ -83,9 +84,18 @@ public class CommandE implements CommandExecutor{
                             break;
                         }
 
-                        createOutgoingLetter(args[0], letter);
-                        player.getInventory().getItemInMainHand().setAmount(0);
 
+                        OfflinePlayer reciever = Bukkit.getOfflinePlayer(args[0]);
+
+                        if (reciever.isOnline() && ( player.getWorld() == ((Player) reciever).getWorld())) {
+                            double distance = player.getLocation().distance(((Player) reciever).getLocation());
+                            OutgoingLetter.newOutgoingLetter(reciever, letter, distance);
+                        }
+                        else {
+                            OutgoingLetter.newOutgoingLetter(reciever, letter, ConfigLoader.DIFFERENT_DIMENSION_DELAY);
+                        }
+                        
+                        player.getInventory().getItemInMainHand().setAmount(0);
                         player.sendMessage(ConfigLoader.MESSAGE_PLUGIN_PREFIX + ConfigLoader.MESSAGE_LETTER_SEND);
 
                         break;
@@ -102,7 +112,7 @@ public class CommandE implements CommandExecutor{
                         OutgoingLetter.bloquedPlayers.remove(player);
 
                         if (OutgoingLetter.outgoingLetters.get(player.getUniqueId()).size() > 0) {
-                            OutgoingLetter.send(player, false);
+                            OutgoingLetter.send(player, false, ConfigLoader.ON_ENABLE_LETTERS_DELAY);
                         }
 
                     }
@@ -116,14 +126,6 @@ public class CommandE implements CommandExecutor{
             }
         };
         return true;
-    }
-
-    @SuppressWarnings("deprecation") 
-    public static void createOutgoingLetter(String destinationPlayer, ItemStack letter){
-
-        OfflinePlayer player = Bukkit.getOfflinePlayer(destinationPlayer);
-        OutgoingLetter.newOutgoingLetter(player, letter);
-
     }
 
 }
