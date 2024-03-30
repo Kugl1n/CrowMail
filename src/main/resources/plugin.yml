@@ -10,20 +10,24 @@ prefix: crowMail
 
 commands:
   carta:
-    description: Your description
+    description: Cria uma carta
     usage: /<command>
     permission: crow.carta
 
   cartaanonima:
-    description: Your description
+    description: Crie uma carta anonima
     usage: /<command>
     permission: crow.cartaanonima
 
   enviar:
-    description: Your description
+    description: Envia a carta
     usage: /<command>
     permission: crow.enviar
 
   infocarta:
+    description: Retorna o usuário que escreveu uma carta.
+    usage: /<command>
+
+  bloquearcartas:
     description: Retorna o usuário que escreveu uma carta.
     usage: /<command>

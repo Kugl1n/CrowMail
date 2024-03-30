@@ -21,7 +21,8 @@ import net.md_5.bungee.api.ChatColor;
 public class OutgoingLetter {
 
     public static HashMap<UUID, ArrayList<ItemStack>> outgoingLetters = new HashMap<>();
-    
+    public static List<Player> bloquedPlayers = new ArrayList<>();
+
     public static void newOutgoingLetter(OfflinePlayer player, ItemStack letter) {
 
         UUID uuid = player.getUniqueId();

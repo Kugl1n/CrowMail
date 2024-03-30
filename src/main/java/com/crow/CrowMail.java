@@ -38,6 +38,7 @@ public class CrowMail extends JavaPlugin {
         getCommand("cartaanonima").setExecutor(commandE);
         getCommand("enviar").setExecutor(commandE);
         getCommand("infocarta").setExecutor(commandE);
+        getCommand("bloquearcartas").setExecutor(commandE);
 
         // EventHandler Atribution
         pluginManager.registerEvents(new PlayerE(), plugin);

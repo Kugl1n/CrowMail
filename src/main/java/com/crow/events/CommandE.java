@@ -93,6 +93,26 @@ public class CommandE implements CommandExecutor{
 
                     player.sendMessage("§8§l[Crow§f§lMail§8§l] §r§7Você não está segurando uma carta.");
                     break;
+
+                case "bloquearcartas":
+
+
+                    if (OutgoingLetter.bloquedPlayers.contains(player)){
+                        player.sendMessage("§8§l[Crow§f§lMail§8§l] §r§7O Recebimento de cartas foi Habilitado");
+                        OutgoingLetter.bloquedPlayers.remove(player);
+
+                        if (OutgoingLetter.outgoingLetters.get(player.getUniqueId()).size() > 0) {
+                            OutgoingLetter.send(player, false);
+                        }
+
+                    }
+                    else {
+                        player.sendMessage("§8§l[Crow§f§lMail§8§l] §r§7O Recebimento de cartas foi Desabilitado");
+                        OutgoingLetter.bloquedPlayers.add(player);
+                    }
+                
+                    break;
+
             }
         };
         return true;

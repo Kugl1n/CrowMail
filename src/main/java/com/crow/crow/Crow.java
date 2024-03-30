@@ -37,8 +37,8 @@ public class Crow {
 
     public void spawn(Player reciever, boolean anonimous) {
 
-        // Verify player Game Mode
-        if (ConfigLoader.BLOCKED_GAMEMODES.contains(reciever.getGameMode())){
+        // Verify Gamemode and Blocked
+        if (ConfigLoader.BLOCKED_GAMEMODES.contains(reciever.getGameMode()) || OutgoingLetter.bloquedPlayers.contains(reciever)){
             return;
         }
 
