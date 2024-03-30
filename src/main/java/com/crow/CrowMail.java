@@ -23,7 +23,6 @@ public class CrowMail extends JavaPlugin {
         plugin =  this;
         
         saveDefaultConfig();
-
         ConfigLoader.loadConfigs();
 
         getLogger().info("CrowMail Enabled");

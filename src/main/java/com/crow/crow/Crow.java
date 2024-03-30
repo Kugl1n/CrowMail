@@ -49,13 +49,13 @@ public class Crow {
 
         // Set Raven if Anonimous
         if (anonimous) {
-            crowEntity.setVariant(Parrot.Variant.GRAY);
-            reciever.sendMessage("§8§l[Crow§f§lMail§8§l] §r§7Um §4§lCorvo§r chegou.");
+            crowEntity.setVariant(ConfigLoader.CROW_VARIANT);
+            reciever.sendMessage(ConfigLoader.MESSAGE_PLUGIN_PREFIX + ConfigLoader.MESSAGE_CROW_ARRIVED);
         }
 
         else {
-            crowEntity.setVariant(Parrot.Variant.BLUE);
-            reciever.sendMessage("§8§l[Crow§f§lMail§8§l] §r§7Um Pombo chegou.");
+            crowEntity.setVariant(ConfigLoader.PIGEON_VARIANT);
+            reciever.sendMessage(ConfigLoader.MESSAGE_PLUGIN_PREFIX + ConfigLoader.MESSAGE_PIGEON_ARRIVED);
         }
 
         // Set the entity to stay still

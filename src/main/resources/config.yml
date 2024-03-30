@@ -2,4 +2,25 @@ receive-delay: 100
 despawn-time: 100
 cem-letter: 100
 cem-anonimous-letter: 101
+
+pigeon-variant: BLUE
+crow-variant: GRAY
+
 blocked-gamemodes: []
+
+message-plugin-prefix: §8§l[Crow§f§lMail§8§l] §r
+message-inventory-full: §7Seu inventario está cheio.
+message-letter-created: §7Carta Criada.
+message-dont-holding-letter: §7Você não está segurando uma carta.
+message-written-by: §7Esta carta foi escrita por §e§l
+message-incorrect-usage: §7Usagem incorreta! Utilize somente /infocarta
+message-add-reciever: §7Adicione um Destinatario.
+message-invalid-letter: §7Carta Invalida.
+message-letter-send: §7Carta Enviada.
+message-letter-recieved: §7Carta Recebida.
+
+message-pigeon-arrived: §7Um Pombo chegou.
+message-crow-arrived: §r§7Um §4§lCorvo§r chegou.
+
+message-disable-letters: §7O Recebimento de cartas foi Desabilitado
+message-enable-letters: §7O Recebimento de cartas foi Habilitado

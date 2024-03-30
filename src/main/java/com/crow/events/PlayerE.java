@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 
+import com.crow.config.ConfigLoader;
 import com.crow.crow.Crow;
 import com.crow.letter.OutgoingLetter;
 
@@ -34,7 +35,7 @@ public class PlayerE implements Listener{
                 ItemStack letter = iterator.next();
 
                 if (destinationPlayer.getInventory().firstEmpty() == -1) {
-                    destinationPlayer.sendMessage("§8§l[Crow§f§lMail§8§l] §r§7Seu inventario está cheio.");
+                    destinationPlayer.sendMessage(ConfigLoader.MESSAGE_PLUGIN_PREFIX + ConfigLoader.MESSAGE_INVENTORY_FULL);
                     crow.playParticleBad();
                     crow.remove();
                     return;
@@ -46,7 +47,7 @@ public class PlayerE implements Listener{
             }
             
             crow.playParticleGood();
-            destinationPlayer.sendMessage("§8§l[Crow§f§lMail§8§l] §r§7Carta Recebida.");
+            destinationPlayer.sendMessage(ConfigLoader.MESSAGE_PLUGIN_PREFIX + ConfigLoader.MESSAGE_LETTER_RECIEVED);
             crow.isDelivered = true;
             crow.remove();
             OutgoingLetter.outgoingLetters.remove(destinationPlayer.getUniqueId());
