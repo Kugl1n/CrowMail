@@ -4,20 +4,52 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import com.crow.CrowMail;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
 import com.crow.config.ConfigLoader;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 public class LetterCreator {
 
-    public static ItemStack createLetter(String player, String[] content, boolean anonimous) {
+    private static final NamespacedKey key = new NamespacedKey(CrowMail.getInstance(), "playerName");
+
+    public static String autor;
+
+    /**
+     * Getter que retorna o nome do usuário que escreveu uma carta
+     *
+     * @param player usuário que digita o comando /infocarta
+     * - Super
+     */
+    // TODO: se necessário, alterar para OfflinePlayer
+    public static String getLetterOwner(Player player){
+        ItemStack book = player.getInventory().getItemInMainHand();
+        BookMeta bm = (BookMeta) book.getItemMeta();
+
+        if (bm.getPersistentDataContainer().has(key, PersistentDataType.STRING)) {
+            autor = bm.getPersistentDataContainer().get(key, PersistentDataType.STRING);
+            return autor;
+        }
+        return null;
+    }
+
+    public static ItemStack createLetter(Player player, String[] content, boolean anonimous) {
 
         // Creates the Item and Book meta
         ItemStack book = new ItemStack(Material.WRITTEN_BOOK, 1);
         BookMeta bm = (BookMeta) book.getItemMeta();
+
+        // Cria um contêiner que guarda o usuário que escreveu a carta, mesmo se for anônima - Super
+
+        PersistentDataContainer pdc = bm.getPersistentDataContainer();
+        pdc.set(key, PersistentDataType.STRING, player.getName());
 
         // Set Author and Letter Tittle (Anonimous or not)
         if (anonimous) {
@@ -29,8 +61,8 @@ public class LetterCreator {
 
         }
         else {
-            bm.setAuthor(player);
-            bm.setTitle("Carta de " + player);
+            bm.setAuthor(player.getName());
+            bm.setTitle("Carta de " + player.getName());
 
             // Custom Model Data from the letter
             bm.setCustomModelData(ConfigLoader.CEM_LETTER);
@@ -59,6 +91,9 @@ public class LetterCreator {
         String dateNow = formatter.format(currentDate.getTime());
 
         lore.add(ChatColor.DARK_GRAY + dateNow);
+
+
+
 
         // Set the lore and item meta to the Book
         bm.setLore(lore);

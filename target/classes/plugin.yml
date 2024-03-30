@@ -1,5 +1,5 @@
 name: CrowMail
-version: 1.1.0
+version: 1.2.0
 description: Sending parrots to deliver your letters
 author: Kuglin
 
@@ -23,3 +23,7 @@ commands:
     description: Your description
     usage: /<command>
     permission: crow.enviar
+
+  infocarta:
+    description: Retorna o usuário que escreveu uma carta.
+    usage: /<command>
