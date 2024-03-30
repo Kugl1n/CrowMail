@@ -1,0 +1,25 @@
+name: CrowMail
+version: 1.1.0
+description: Sending parrots to deliver your letters
+author: Kuglin
+
+main: com.crow.CrowMail
+api-version: '1.20'
+
+prefix: crowMail
+
+commands:
+  carta:
+    description: Your description
+    usage: /<command>
+    permission: crow.carta
+
+  cartaanonima:
+    description: Your description
+    usage: /<command>
+    permission: crow.cartaanonima
+
+  enviar:
+    description: Your description
+    usage: /<command>
+    permission: crow.enviar
