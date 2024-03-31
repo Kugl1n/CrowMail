@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public class MessageManager {
 
+
     private static final ConfigLoader messageConfig = ConfigLoader.getMessageConfig();
     private static YamlConfiguration config = messageConfig.getConfig();
 
@@ -19,7 +20,7 @@ public class MessageManager {
     public static String INVALID_LETTER;
     public static String LETTER_SENT;
     public static String LETTER_RECIEVED;
-
+    public static String SHRED_LETTER;
     public static String PIGEON_ARRIVED;
     public static String CROW_ARRIVED;
 
@@ -44,7 +45,7 @@ public class MessageManager {
         INVALID_LETTER = PLUGIN_PREFIX + format(config.getString("invalid-letter"));
         LETTER_SENT = PLUGIN_PREFIX + format(config.getString("letter-sent"));
         LETTER_RECIEVED = PLUGIN_PREFIX + format(config.getString("letter-recieved"));
-
+        SHRED_LETTER = PLUGIN_PREFIX + format(config.getString("shred-letter"));
         PIGEON_ARRIVED = PLUGIN_PREFIX + format(config.getString("pigeon-arrived"));
         CROW_ARRIVED = PLUGIN_PREFIX + format(config.getString("crow-arrived"));
 

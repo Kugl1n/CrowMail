@@ -105,6 +105,25 @@ public class CommandE implements CommandExecutor{
                     player.sendMessage(MessageManager.NOT_HOLDING_LETTER);
                     break;
 
+                case "rasgar":
+                    if (args.length >= 0){
+                        if (LetterChecker.isHoldingLetter(player)){
+                            player.getInventory().getItemInMainHand().setAmount(0);
+                            player.sendMessage(MessageManager.SHRED_LETTER);
+                            if (args.length >= 1){
+                                if (args[0].equals("todas") || args[0].equals("tudo")|| args[0].equals("all")){
+                                    for (ItemStack item : player.getInventory().getContents()) {
+                                        if (LetterChecker.isValidLetter(item)) item.setAmount(0);
+                                    }
+                                }
+                            }
+                        } else {
+                            player.sendMessage(MessageManager.NOT_HOLDING_LETTER);
+                        }
+                    }
+
+                    break;
+
                 case "bloquearcartas":
 
 

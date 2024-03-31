@@ -1,5 +1,5 @@
 name: CrowMail
-version: 1.1.5
+version: 1.1.6
 description: Sending parrots to deliver your letters
 author: Kuglin
 
@@ -10,24 +10,31 @@ prefix: crowMail
 
 commands:
   carta:
-    description: Cria uma carta
+    description: Writes a letter
     usage: /<command>
     permission: crow.carta
 
   cartaanonima:
-    description: Crie uma carta anonima
+    description: Writes an anonymous letter
     usage: /<command>
     permission: crow.cartaanonima
 
   enviar:
-    description: Envia a carta
+    description: Sends a letter
     usage: /<command>
     permission: crow.enviar
 
   infocarta:
-    description: Retorna o usuário que escreveu uma carta.
+    description: Returns the user who wrote a letter
     usage: /<command>
+    permission: crow.infocarta
 
   bloquearcartas:
-    description: Retorna o usuário que escreveu uma carta.
+    description: Blocks the recieving of letters for that user
     usage: /<command>
+    permission: crow.bloquear
+
+  rasgar:
+    description: Destroys the user's letter in hand
+    usage: /<command>
+    permission: crow.rasgar
