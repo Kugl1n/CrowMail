@@ -55,14 +55,16 @@ public class ConfigLoader {
         if (configFile == null) {
             configFile = new File(plugin.getDataFolder(), filename);
         }
-
+        System.out.println("configFile: " + configFile);
         YMLConfig = YamlConfiguration.loadConfiguration(configFile);
         Reader reader = new InputStreamReader(
                 plugin.getResource(filename), StandardCharsets.UTF_8);
+        System.out.println("reader: ");
         YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(reader);
         YMLConfig.setDefaults(defConfig);
         YMLConfig.options().copyDefaults(true);
         saveConfigs();
+        System.out.println("YMLConfig: " + YMLConfig);
 
         if (filename.equals("messages.yml")) MessageManager.reloadMessages();
     }

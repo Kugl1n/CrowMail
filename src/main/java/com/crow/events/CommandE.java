@@ -114,6 +114,7 @@ public class CommandE implements CommandExecutor{
                                 if (args[0].equals("todas") || args[0].equals("tudo")|| args[0].equals("all")){
                                     for (ItemStack item : player.getInventory().getContents()) {
                                         if (LetterChecker.isValidLetter(item)) item.setAmount(0);
+
                                     }
                                 }
                             }

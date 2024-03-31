@@ -26,8 +26,9 @@ public class CrowMail extends JavaPlugin {
         plugin = this;
 
         //Saves and creates the config.yml and messages.yml, if they don't exist
-        ConfigLoader.getMainConfig().saveDefaultConfig();
         ConfigLoader.getMessageConfig().saveDefaultConfig();
+        ConfigLoader.getMainConfig().saveDefaultConfig();
+
 
 
         //Loads the config.yml and messages.yml files' content
