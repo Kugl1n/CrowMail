@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.crow.config.MainConfig;
-import org.bukkit.GameMode;
+
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -14,7 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.crow.CrowMail;
-import com.crow.config.ConfigLoader;
+
 import com.crow.crow.Crow;
 
 import net.md_5.bungee.api.ChatColor;

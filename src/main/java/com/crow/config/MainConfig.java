@@ -1,7 +1,6 @@
 package com.crow.config;
 
 import org.bukkit.GameMode;
-import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Parrot;
 

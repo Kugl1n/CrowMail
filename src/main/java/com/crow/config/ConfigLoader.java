@@ -63,7 +63,8 @@ public class ConfigLoader {
         YMLConfig.setDefaults(defConfig);
         YMLConfig.options().copyDefaults(true);
         saveConfigs();
-        MessageManager.reloadMessages();
+
+        if (filename.equals("messages.yml")) MessageManager.reloadMessages();
     }
 
     /**

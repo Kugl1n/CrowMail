@@ -10,12 +10,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.crow.config.ConfigLoader;
 import com.crow.letter.LetterChecker;
 import com.crow.letter.LetterCreator;
 import com.crow.letter.OutgoingLetter;
 
-import javax.swing.*;
 
 
 public class CommandE implements CommandExecutor{
@@ -123,7 +121,7 @@ public class CommandE implements CommandExecutor{
                         player.sendMessage(MessageManager.DISABLE_LETTERS);
                         OutgoingLetter.blockedPlayers.add(player);
                     }
-                
+
                     break;
 
             }
