@@ -76,7 +76,7 @@ public class PlayerE implements Listener{
         if (event.getPlayer().isOnline() && MainConfig.BLOCKED_GAMEMODES.contains(event.getPlayer().getGameMode())) {
             Player player = event.getPlayer();
 
-            if (OutgoingLetter.outgoingLetters.get(player.getUniqueId()).size() > 0) {
+            if (OutgoingLetter.outgoingLetters.containsKey(player.getUniqueId())) {
                 OutgoingLetter.send(player, false, MainConfig.ON_GAMEMODE_DELAY);
 
             }
