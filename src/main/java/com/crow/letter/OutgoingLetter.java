@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import com.crow.config.MainConfig;
 import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -21,9 +22,9 @@ import net.md_5.bungee.api.ChatColor;
 public class OutgoingLetter {
 
     public static HashMap<UUID, ArrayList<ItemStack>> outgoingLetters = new HashMap<>();
-    public static List<Player> bloquedPlayers = new ArrayList<>();
+    public static List<Player> blockedPlayers = new ArrayList<>();
 
-    public static void newOutgoingLetter(OfflinePlayer player, ItemStack letter) {
+    public static void newOutgoingLetter(OfflinePlayer player, ItemStack letter, double distance) {
 
         UUID uuid = player.getUniqueId();
 
@@ -43,17 +44,17 @@ public class OutgoingLetter {
         outgoingLetters.get(uuid).add(new ItemStack(letter));
 
         // If the player is online, send the letter
-        if (player.isOnline() && (outgoingLetters.get(uuid).size()==1) && ((Player) player).getGameMode() != GameMode.SPECTATOR) {
+        if (player.isOnline() && (outgoingLetters.get(uuid).size()==1)) {
 
             if (letter.getItemMeta().getCustomModelData() == 101)
-                send( (Player) player, true);
+                send( (Player) player, true, ((int)(distance))* MainConfig.DISTANCE_MODIFIER);
             else
-                send( (Player) player, false);
+                send( (Player) player, false, ((int)(distance)) * MainConfig.DISTANCE_MODIFIER);
         }
 
     }
 
-    public static void send(Player player, boolean anonimous) {
+    public static void send(Player player, boolean anonimous, int time) {
 
         new BukkitRunnable() {
             @Override
@@ -64,7 +65,7 @@ public class OutgoingLetter {
             
             }
 
-        }.runTaskLater(CrowMail.getInstance(), ConfigLoader.RECEIVE_DELAY);
+        }.runTaskLater(CrowMail.getInstance(), time);
 
     }
 

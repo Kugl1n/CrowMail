@@ -2,6 +2,9 @@ package com.crow.crow;
 
 import java.util.HashMap;
 
+import com.crow.config.MainConfig;
+import com.crow.config.MessageManager;
+import jdk.tools.jmod.Main;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
@@ -16,6 +19,7 @@ import com.crow.letter.OutgoingLetter;
 
 
 public class Crow {
+
 
     //HashMap of All Crows
     private static HashMap<Entity, Crow> crows = new HashMap<>();
@@ -38,7 +42,7 @@ public class Crow {
     public void spawn(Player reciever, boolean anonimous) {
 
         // Verify Gamemode and Blocked
-        if (ConfigLoader.BLOCKED_GAMEMODES.contains(reciever.getGameMode()) || OutgoingLetter.bloquedPlayers.contains(reciever)){
+        if (MainConfig.BLOCKED_GAMEMODES.contains(reciever.getGameMode()) || OutgoingLetter.blockedPlayers.contains(reciever)){
             return;
         }
 
@@ -49,13 +53,13 @@ public class Crow {
 
         // Set Raven if Anonimous
         if (anonimous) {
-            crowEntity.setVariant(ConfigLoader.CROW_VARIANT);
-            reciever.sendMessage(ConfigLoader.MESSAGE_PLUGIN_PREFIX + ConfigLoader.MESSAGE_CROW_ARRIVED);
+            crowEntity.setVariant(MainConfig.CROW_VARIANT);
+            reciever.sendMessage(MessageManager.CROW_ARRIVED);
         }
 
         else {
-            crowEntity.setVariant(ConfigLoader.PIGEON_VARIANT);
-            reciever.sendMessage(ConfigLoader.MESSAGE_PLUGIN_PREFIX + ConfigLoader.MESSAGE_PIGEON_ARRIVED);
+            crowEntity.setVariant(MainConfig.PIGEON_VARIANT);
+            reciever.sendMessage(MessageManager.PIGEON_ARRIVED);
         }
 
         // Set the entity to stay still
@@ -72,12 +76,12 @@ public class Crow {
                 remove();
 
                 if (!isDelivered && reciever.isOnline()) {
-                    OutgoingLetter.send(reciever, anonimous);
+                    OutgoingLetter.send(reciever, anonimous, MainConfig.RESEND_DELAY);
                 }
             
             }
             
-        }.runTaskLater(CrowMail.getInstance(), ConfigLoader.DESPAWN_TIME);
+        }.runTaskLater(CrowMail.getInstance(), MainConfig.DESPAWN_DELAY);
 
     }
 

@@ -3,6 +3,8 @@ package com.crow.events;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.crow.config.MainConfig;
+import com.crow.config.MessageManager;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,7 +37,7 @@ public class PlayerE implements Listener{
                 ItemStack letter = iterator.next();
 
                 if (destinationPlayer.getInventory().firstEmpty() == -1) {
-                    destinationPlayer.sendMessage(ConfigLoader.MESSAGE_PLUGIN_PREFIX + ConfigLoader.MESSAGE_INVENTORY_FULL);
+                    destinationPlayer.sendMessage(MessageManager.INVENTORY_FULL);
                     crow.playParticleBad();
                     crow.remove();
                     return;
@@ -47,7 +49,7 @@ public class PlayerE implements Listener{
             }
             
             crow.playParticleGood();
-            destinationPlayer.sendMessage(ConfigLoader.MESSAGE_PLUGIN_PREFIX + ConfigLoader.MESSAGE_LETTER_RECIEVED);
+            destinationPlayer.sendMessage(MessageManager.LETTER_RECIEVED);
             crow.isDelivered = true;
             crow.remove();
             OutgoingLetter.outgoingLetters.remove(destinationPlayer.getUniqueId());
@@ -62,7 +64,7 @@ public class PlayerE implements Listener{
             Player player = joinEvent.getPlayer();
 
             if (OutgoingLetter.outgoingLetters.get(player.getUniqueId()).size() > 0) {
-                OutgoingLetter.send(player, false);
+                OutgoingLetter.send(player, false, MainConfig.ON_JOIN_DELAY);
 
             }
         }
@@ -71,11 +73,11 @@ public class PlayerE implements Listener{
     @EventHandler
     public void onGamemode(PlayerGameModeChangeEvent event) {
 
-        if (event.getPlayer().isOnline()) {
+        if (event.getPlayer().isOnline() && MainConfig.BLOCKED_GAMEMODES.contains(event.getPlayer().getGameMode())) {
             Player player = event.getPlayer();
 
             if (OutgoingLetter.outgoingLetters.get(player.getUniqueId()).size() > 0) {
-                OutgoingLetter.send(player, false);
+                OutgoingLetter.send(player, false, MainConfig.ON_GAMEMODE_DELAY);
 
             }
         }

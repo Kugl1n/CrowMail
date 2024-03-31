@@ -1,4 +1,6 @@
 package com.crow;
+import com.crow.config.MainConfig;
+import com.crow.config.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -6,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.crow.config.ConfigLoader;
 import com.crow.events.CommandE;
 import com.crow.events.PlayerE;
+import sun.security.krb5.Config;
 
 public class CrowMail extends JavaPlugin {
 
@@ -20,10 +23,17 @@ public class CrowMail extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        plugin =  this;
+        plugin = this;
         
         saveDefaultConfig();
-        ConfigLoader.loadConfigs();
+
+        //Saves and creates the config.yml and messages.yml, if they don't exist
+        ConfigLoader.getMainConfig().saveDefaultConfig();
+        ConfigLoader.getMessageConfig().saveDefaultConfig();
+
+        //Loads the config.yml and messages.yml files' content
+        MainConfig.loadConfigs();
+        MessageManager.reloadMessages();
 
         getLogger().info("CrowMail Enabled");
         
@@ -47,5 +57,7 @@ public class CrowMail extends JavaPlugin {
     @Override
     public void onDisable() {
         getLogger().info("CrowMail Disabled");
+
+        plugin = null;
     }
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.crow.CrowMail;
+import com.crow.config.MainConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -57,7 +58,7 @@ public class LetterCreator {
             bm.setTitle("Carta Anônima");
 
             // Custom Model Data from the letter
-            bm.setCustomModelData(ConfigLoader.CEM_ANONIMOUS_LETTER);
+            bm.setCustomModelData(MainConfig.CEM_ANONIMOUS_LETTER);
 
         }
         else {
@@ -65,7 +66,7 @@ public class LetterCreator {
             bm.setTitle("Carta de " + player.getName());
 
             // Custom Model Data from the letter
-            bm.setCustomModelData(ConfigLoader.CEM_LETTER);
+            bm.setCustomModelData(MainConfig.CEM_LETTER);
 
         }
 
