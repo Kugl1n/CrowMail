@@ -63,9 +63,7 @@ public class PlayerE implements Listener{
         if (joinEvent.getPlayer().isOnline()) {
             Player player = joinEvent.getPlayer();
 
-            // null pointer exception
-
-            if (OutgoingLetter.outgoingLetters.get(player.getUniqueId()).size() > 0) {
+            if (OutgoingLetter.outgoingLetters.containsKey(player.getUniqueId())){
                 OutgoingLetter.send(player, false, MainConfig.ON_JOIN_DELAY);
 
             }
