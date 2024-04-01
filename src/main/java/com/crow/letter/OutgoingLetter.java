@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.crow.config.MainConfig;
 
+import com.crow.config.MessageManager;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -37,7 +38,7 @@ public class OutgoingLetter {
     private OutgoingLetter outgoingLetter;
 
 
-    public static HashMap<UUID, ArrayList<ItemStack>> converArrayToHash() {
+    public static HashMap<UUID, ArrayList<ItemStack>> convertArrayToHash() {
 
         HashMap<UUID, ArrayList<ItemStack>> hashMap = new HashMap<>();
         for (OutgoingLetter outLetter : outgoingLetters) {
@@ -88,9 +89,17 @@ public class OutgoingLetter {
         new BukkitRunnable() {
             @Override
             public void run() {
-
-                if (MainConfig.BLOCKED_GAMEMODES.contains(((Player) player).getGameMode()) || OutgoingLetter.blockedPlayers.contains(player))
+                if (OutgoingLetter.blockedPlayers.contains(((Player) player))) {
+                    ((Player) player).sendMessage(MessageManager.IN_BLOCKED_MODE);
                     return;
+                } else if (MainConfig.BLOCKED_WORLDS.contains(((Player) player).getWorld())) {
+                    ((Player) player).sendMessage(MessageManager.IN_BLOCKED_WORLD);
+                    return;
+                } else if (MainConfig.BLOCKED_GAMEMODES.contains(((Player) player).getGameMode())){
+                    ((Player) player).sendMessage(MessageManager.IN_BLOCKED_GAMEMODE);
+                    return;
+                }
+
 
                 crow = new Crow();
                 crow.spawn((Player) player, anonimous);

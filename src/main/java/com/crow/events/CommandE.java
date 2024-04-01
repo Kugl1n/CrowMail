@@ -48,7 +48,6 @@ public class CommandE implements CommandExecutor{
                 /**
                  * Comando que retorna o usuário que escreveu uma carta
                  *
-                 * @author Super
                  */
                 case "infocarta":
                     if (args.length == 0){
@@ -58,7 +57,7 @@ public class CommandE implements CommandExecutor{
                             player.sendMessage(MessageManager.NOT_HOLDING_LETTER);
                         }
                     } else {
-                        player.sendMessage(MessageManager.INCORRECT_USAGE);
+                        player.sendMessage(MessageManager.INCORRECT_USAGE + " /infocarta");
                     }
                     break;
 
@@ -157,10 +156,6 @@ public class CommandE implements CommandExecutor{
                     if (args.length == 1){
                         if (args[0].toLowerCase().equals("reload")) {
                             if (player.hasPermission("crow.reload")) {
-                                // possivelmente vai dar problema com o Outgoing, deve ter que fazer um outgoing Manager
-//                              Crow.getCrows().keySet().forEach(Entity::remove);
-//                              Crow.getCrows().clear();
-
                                 OutgoingManager.saveLetters();
 
                                 ConfigLoader.getOutgoingConfig().reloadConfig();
@@ -169,12 +164,16 @@ public class CommandE implements CommandExecutor{
 
                                 MainConfig.loadConfigs();
                                 MessageManager.reloadMessages();
-
-
+                                OutgoingManager.loadLetters();
 
                                 player.sendMessage(MessageManager.RELOAD_SUCCESS);
+                            } else {
+                                player.sendMessage(MessageManager.ERROR_NO_PERMISSION);
                             }
+                        } else {
+                            player.sendMessage(MessageManager.INCORRECT_USAGE + " /crowmail reload");
                         }
+
                     }
                     break;
 

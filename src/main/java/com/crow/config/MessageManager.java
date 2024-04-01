@@ -27,7 +27,11 @@ public class MessageManager {
     public static String ENABLE_LETTERS;
     public static String IN_BLOCKED_GAMEMODE;
     public static String IN_BLOCKED_MODE;
+    public static String IN_BLOCKED_WORLD;
     public static String RELOAD_SUCCESS;
+
+    public static String ERROR_NO_PERMISSION;
+
 
 
     /**
@@ -57,17 +61,20 @@ public class MessageManager {
         ENABLE_LETTERS = PLUGIN_PREFIX + format(config.getConfig().getString("enable-letters"));
         IN_BLOCKED_GAMEMODE = PLUGIN_PREFIX + format(config.getConfig().getString("in-blocked-gamemode"));
         IN_BLOCKED_MODE = PLUGIN_PREFIX + format(config.getConfig().getString("in-blocked-mode"));
+        IN_BLOCKED_WORLD = PLUGIN_PREFIX + format(config.getConfig().getString("in-blocked-world"));
         RELOAD_SUCCESS = PLUGIN_PREFIX + format(config.getConfig().getString("reload-success"));
+
+        ERROR_NO_PERMISSION = PLUGIN_PREFIX + format(config.getConfig().getString("error-no-permission"));
+
     }
 
 
     /**
-     *
+     * Standard message formatter
      * @param msg Message to be formatted
-     * @return ChatColor
+     * @return String with translated ChatColors
      * @author Super
      */
-
     public static String format(String msg) {
         return ChatColor.translateAlternateColorCodes('&', msg.replace("\\n", "\n"));
     }

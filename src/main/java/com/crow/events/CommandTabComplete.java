@@ -1,5 +1,6 @@
 package com.crow.events;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -26,7 +27,13 @@ public class CommandTabComplete implements TabCompleter {
                     case "rasgar":
                         return StringUtil.copyPartialMatches(args[0], Arrays.asList("todas"), new ArrayList<>());
 
-                    //TODO: adicionar enviar
+                    case "enviar":
+                        List<String> names = new ArrayList<>();
+
+                        for (Player player : Bukkit.getOnlinePlayers()){
+                            names.add(player.getName());
+                        }
+                        return StringUtil.copyPartialMatches(args[0], names, new ArrayList<>());
 
                 }
             }

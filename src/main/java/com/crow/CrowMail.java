@@ -35,7 +35,7 @@ public class CrowMail extends JavaPlugin {
 
         //Loads the config.yml and messages.yml files' content
         MainConfig.loadConfigs();
-        //OutgoingManager.();
+        OutgoingManager.loadLetters();
         MessageManager.reloadMessages();
 
         getLogger().info("CrowMail Enabled");
@@ -56,6 +56,7 @@ public class CrowMail extends JavaPlugin {
 
         getCommand("crowmail").setTabCompleter(new CommandTabComplete());
         getCommand("rasgar").setTabCompleter(new CommandTabComplete());
+        getCommand("enviar").setTabCompleter(new CommandTabComplete());
 
         // EventHandler Atribution
         pluginManager.registerEvents(new PlayerE(), plugin);
@@ -66,8 +67,6 @@ public class CrowMail extends JavaPlugin {
     public void onDisable() {
         getLogger().info("CrowMail Disabled");
         OutgoingManager.saveLetters();
-
-
 
 
         plugin = null;

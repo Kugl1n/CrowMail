@@ -12,21 +12,36 @@ public class OutgoingManager {
 
     public static final ConfigLoader outgoingConfig = ConfigLoader.getOutgoingConfig();
 
-    // public static ArrayList<OutgoingLetter> outgoing = OutgoingLetter.getOutgoingLetters();
+    public static HashMap<UUID, ArrayList<ItemStack>> outgoing = new HashMap<>();
 
-    public static HashMap<UUID, ArrayList<ItemStack>> convertedOutgoing = new HashMap<>();
-
+    /**
+     * Gets all current outgoing letters on the HashMap and stores them im outgoing.yml
+     *
+     * @author Super
+     */
     public static void saveLetters(){
-            convertedOutgoing = OutgoingLetter.converArrayToHash();
+        outgoing = OutgoingLetter.convertArrayToHash();
 
-            convertedOutgoing.forEach((player, letter) -> {
-            outgoingConfig.getConfig().set(String.valueOf(player), letter);
+        outgoing.forEach((player, letter) -> {
+        outgoingConfig.getConfig().set(String.valueOf(player), letter);
 
-            outgoingConfig.saveConfigs();
-            });
-
-        }
-
-        //TODO: fazer loadLetters
+        outgoingConfig.saveConfigs();
+        });
 
     }
+
+    /**
+     * Gets the stored outgoing letters in outgoing.yml and loads them into the HashMap
+     *
+     * @author Super
+     */
+    public static void loadLetters(){
+        for (String key : outgoingConfig.getConfig().getKeys(false)){
+
+            outgoing.put(UUID.fromString(key), (ArrayList<ItemStack>) outgoingConfig.getConfig().getList(key));
+
+        }
+    }
+
+
+}
