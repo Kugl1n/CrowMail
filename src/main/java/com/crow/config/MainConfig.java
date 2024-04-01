@@ -32,6 +32,7 @@ public class MainConfig {
     public static int RESEND_DELAY;
     public static int ON_JOIN_DELAY;
     public static int ON_GAMEMODE_DELAY;
+    public static int ON_WORLD_CHANGE_DELAY;
     public static int ON_ENABLE_LETTERS_DELAY;
     public static int DIFFERENT_DIMENSION_DELAY;
 
@@ -61,6 +62,7 @@ public class MainConfig {
 
         ON_JOIN_DELAY = config.getInt("on-join-delay");
         ON_GAMEMODE_DELAY = config.getInt("on-gamemode-delay");
+        ON_WORLD_CHANGE_DELAY = config.getInt("on-world-change-delay");
         ON_ENABLE_LETTERS_DELAY = config.getInt("on-enable-letters-delay");
 
         List<String> modeStrings = config.getStringList("blocked-gamemodes");

@@ -12,7 +12,7 @@ public class OutgoingManager {
 
     public static final ConfigLoader outgoingConfig = ConfigLoader.getOutgoingConfig();
 
-    public static ArrayList<OutgoingLetter> outgoing = OutgoingLetter.getOutgoingLetters();
+    // public static ArrayList<OutgoingLetter> outgoing = OutgoingLetter.getOutgoingLetters();
 
     public static HashMap<UUID, ArrayList<ItemStack>> convertedOutgoing = new HashMap<>();
 
@@ -26,4 +26,7 @@ public class OutgoingManager {
             });
 
         }
+
+        //TODO: fazer loadLetters
+
     }

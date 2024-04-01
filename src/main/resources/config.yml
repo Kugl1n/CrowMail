@@ -5,6 +5,7 @@ different-dimension-delay: 1000
 
 on-join-delay: 100
 on-gamemode-delay: 100
+on-world-change-delay: 100
 on-enable-letters-delay: 100
 
 # CustomModelData da carta comum

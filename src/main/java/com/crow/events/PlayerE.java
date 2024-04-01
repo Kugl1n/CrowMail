@@ -3,6 +3,7 @@ package com.crow.events;
 import com.crow.config.MainConfig;
 import com.crow.config.MessageManager;
 
+
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -74,7 +75,16 @@ public class PlayerE implements Listener{
     }
 
     @EventHandler
-    public void teste(PlayerChangedWorldEvent e){
+    public void onWorldChange(PlayerChangedWorldEvent e){
+        Player player = e.getPlayer();
+
+        if (MainConfig.BLOCKED_WORLDS.contains(player.getWorld())){
+
+            OutgoingLetter outgoingLetter = OutgoingLetter.isPlayerIn(player);
+            if (outgoingLetter != null)
+                outgoingLetter.send(MainConfig.ON_WORLD_CHANGE_DELAY);
+
+        }
 
     }
 
