@@ -1,6 +1,8 @@
 package com.crow.config;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Parrot;
 
@@ -23,6 +25,7 @@ public class MainConfig {
     public static Parrot.Variant CROW_VARIANT;
 
     public static List<GameMode> BLOCKED_GAMEMODES;
+    public static List<World> BLOCKED_WORLDS;
 
     public static int DISTANCE_MODIFIER;
     public static int DESPAWN_DELAY;
@@ -48,7 +51,8 @@ public class MainConfig {
         CROW_VARIANT = Parrot.Variant.valueOf(config.getString("crow-variant"));
 
 
-        BLOCKED_GAMEMODES = new ArrayList<GameMode>();
+        BLOCKED_GAMEMODES = new ArrayList<>();
+        BLOCKED_WORLDS = new ArrayList<>();
 
         DISTANCE_MODIFIER = config.getInt("receive-delay");
         DESPAWN_DELAY = config.getInt("despawn-delay");
@@ -66,6 +70,16 @@ public class MainConfig {
 
         for (String mode : modeStrings) {
             BLOCKED_GAMEMODES.add(GameMode.valueOf(mode));
+        }
+
+
+        List<String> worldStrings = config.getStringList("blocked-worlds");
+        if (worldStrings.isEmpty()) {
+            return;
+        }
+
+        for (String world : worldStrings) {
+            BLOCKED_WORLDS.add(Bukkit.getWorld(world));
         }
 
 

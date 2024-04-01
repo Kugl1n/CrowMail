@@ -21,4 +21,5 @@ crow-variant: GRAY
 
 
 blocked-gamemodes: [SPECTATOR]
+blocked-worlds: []
 

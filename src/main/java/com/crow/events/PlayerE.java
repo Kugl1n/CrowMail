@@ -1,7 +1,5 @@
 package com.crow.events;
 
-import java.util.ArrayList;
-
 import com.crow.config.MainConfig;
 import com.crow.config.MessageManager;
 
@@ -9,10 +7,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerGameModeChangeEvent;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 
 import com.crow.crow.Crow;
 import com.crow.letter.OutgoingLetter;
@@ -76,6 +71,11 @@ public class PlayerE implements Listener{
         if (outgoingLetter != null) {
             outgoingLetter.removeCrow();
         }
+    }
+
+    @EventHandler
+    public void teste(PlayerChangedWorldEvent e){
+
     }
 
     @EventHandler
