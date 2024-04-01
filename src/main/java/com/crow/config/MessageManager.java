@@ -1,7 +1,6 @@
 package com.crow.config;
 
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 public class MessageManager {
 

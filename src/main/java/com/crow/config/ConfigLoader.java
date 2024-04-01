@@ -5,14 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 
-import com.crow.crow.Crow;
-import org.bukkit.GameMode;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Parrot;
 
 import com.crow.CrowMail;
 

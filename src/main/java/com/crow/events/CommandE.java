@@ -89,12 +89,14 @@ public class CommandE implements CommandExecutor{
                         OfflinePlayer reciever = Bukkit.getOfflinePlayer(args[0]);
 
                         if (reciever.isOnline() && ( player.getWorld() == ((Player) reciever).getWorld())) {
+
                             double distance = player.getLocation().distance(((Player) reciever).getLocation());
-                            OutgoingLetter.newOutgoingLetter(reciever, letter, distance);
+                            new OutgoingLetter(player, letter, distance);
                         }
-                        else {
-                            OutgoingLetter.newOutgoingLetter(reciever, letter, MainConfig.DIFFERENT_DIMENSION_DELAY);
-                        }
+
+                        else
+                            new OutgoingLetter(player, letter, MainConfig.DIFFERENT_DIMENSION_DELAY);
+
 
                         player.getInventory().getItemInMainHand().setAmount(0);
                         player.sendMessage(MessageManager.LETTER_SENT);
@@ -106,34 +108,34 @@ public class CommandE implements CommandExecutor{
                     break;
 
                 case "rasgar":
-                    if (args.length >= 0){
-                        if (LetterChecker.isHoldingLetter(player)){
+                    if (args.length == 0 ){
+                        if (LetterChecker.isHoldingLetter(player)) {
                             player.getInventory().getItemInMainHand().setAmount(0);
                             player.sendMessage(MessageManager.SHRED_LETTER);
-                            if (args.length >= 1){
-                                if (args[0].equals("todas") || args[0].equals("tudo")|| args[0].equals("all")){
-                                    for (ItemStack item : player.getInventory().getContents()) {
-                                        if (LetterChecker.isValidLetter(item)) item.setAmount(0);
-
-                                    }
-                                }
-                            }
-                        } else {
-                            player.sendMessage(MessageManager.NOT_HOLDING_LETTER);
                         }
+                        else
+                            player.sendMessage(MessageManager.NOT_HOLDING_LETTER);
+                    }
+
+                    if (args.length > 0 && (args[0].equals("todas") || args[0].equals("tudo")|| args[0].equals("all")) ) {
+                        for (ItemStack item : player.getInventory().getContents()) {
+                            if (LetterChecker.isValidLetter(item)) 
+                                item.setAmount(0);
+                        }
+                        player.sendMessage(MessageManager.SHRED_LETTER);
                     }
 
                     break;
 
                 case "bloquearcartas":
 
-
                     if (OutgoingLetter.blockedPlayers.contains(player)){
                         player.sendMessage(MessageManager.ENABLE_LETTERS);
                         OutgoingLetter.blockedPlayers.remove(player);
-
-                        if (OutgoingLetter.outgoingLetters.get(player.getUniqueId()).size() > 0) {
-                            OutgoingLetter.send(player, false, MainConfig.ON_ENABLE_LETTERS_DELAY);
+                        
+                        OutgoingLetter outgoingLetter = OutgoingLetter.isPlayerIn(player);
+                        if (outgoingLetter != null) {
+                            outgoingLetter.firstSend();
                         }
 
                     }

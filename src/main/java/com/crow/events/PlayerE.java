@@ -1,10 +1,10 @@
 package com.crow.events;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.crow.config.MainConfig;
 import com.crow.config.MessageManager;
+
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,9 +12,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.event.player.PlayerQuitEvent;
 
-import com.crow.config.ConfigLoader;
 import com.crow.crow.Crow;
 import com.crow.letter.OutgoingLetter;
 
@@ -24,62 +23,74 @@ public class PlayerE implements Listener{
 
     @EventHandler
     public void onEntityInteract(PlayerInteractAtEntityEvent interactEvent){
+        
         Entity entity = interactEvent.getRightClicked();
 
         Player destinationPlayer = interactEvent.getPlayer();
 
-        if (Crow.getCrows().containsKey(entity)){
+        OutgoingLetter outgoingLetter1 = OutgoingLetter.isPlayerIn(destinationPlayer);
+        OutgoingLetter outgoingLetter2 = OutgoingLetter.isCrowIn(entity);
 
-            Crow crow = Crow.getCrows().get(entity);
+        if (outgoingLetter1 == outgoingLetter2) {
 
-            Iterator<ItemStack> iterator = OutgoingLetter.outgoingLetters.get(destinationPlayer.getUniqueId()).iterator();
-            while (iterator.hasNext()) {
-                ItemStack letter = iterator.next();
+            Crow crow = outgoingLetter1.getCrow();
 
-                if (destinationPlayer.getInventory().firstEmpty() == -1) {
-                    destinationPlayer.sendMessage(MessageManager.INVENTORY_FULL);
-                    crow.playParticleBad();
-                    crow.remove();
-                    return;
+            if (destinationPlayer.getInventory().firstEmpty() == -1) {
 
-                } else {
-                    destinationPlayer.getInventory().addItem(letter);
-                    iterator.remove();
-                }
+                destinationPlayer.sendMessage(MessageManager.INVENTORY_FULL);
+                crow.playParticleBad();
+                crow.remove();
+                return;
             }
-            
+
+            destinationPlayer.getInventory().addItem(outgoingLetter1.getLetter());
             crow.playParticleGood();
             destinationPlayer.sendMessage(MessageManager.LETTER_RECIEVED);
-            crow.isDelivered = true;
+            outgoingLetter1.setDelivered();
             crow.remove();
-            OutgoingLetter.outgoingLetters.remove(destinationPlayer.getUniqueId());
+            OutgoingLetter.outgoingLetters.remove(outgoingLetter1);
+
+        }
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent joinEvent){
+
+        Player player = joinEvent.getPlayer();
+
+        if (player.isOnline()) {
+            OutgoingLetter outgoingLetter = OutgoingLetter.isPlayerIn(player);
             
+            if (outgoingLetter != null){
+                outgoingLetter.updatePlayer(player);
+                outgoingLetter.send(MainConfig.ON_JOIN_DELAY);
+            }
         }
 
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent joinEvent){
-        if (joinEvent.getPlayer().isOnline()) {
-            Player player = joinEvent.getPlayer();
+    public void onLeave(PlayerQuitEvent event){
 
-            if (OutgoingLetter.outgoingLetters.containsKey(player.getUniqueId())){
-                OutgoingLetter.send(player, false, MainConfig.ON_JOIN_DELAY);
+        Player player = event.getPlayer();
 
-            }
+        OutgoingLetter outgoingLetter = OutgoingLetter.isPlayerIn(player);
+        if (outgoingLetter != null) {
+            outgoingLetter.removeCrow();
         }
     }
 
     @EventHandler
     public void onGamemode(PlayerGameModeChangeEvent event) {
 
-        if (event.getPlayer().isOnline() && MainConfig.BLOCKED_GAMEMODES.contains(event.getPlayer().getGameMode())) {
-            Player player = event.getPlayer();
+        Player player = event.getPlayer();
 
-            if (OutgoingLetter.outgoingLetters.get(player.getUniqueId()).size() > 0) {
-                OutgoingLetter.send(player, false, MainConfig.ON_GAMEMODE_DELAY);
+        if (player.isOnline() && MainConfig.BLOCKED_GAMEMODES.contains(player.getGameMode())) {
 
-            }
+            OutgoingLetter outgoingLetter = OutgoingLetter.isPlayerIn(player);
+            if (outgoingLetter != null)
+                outgoingLetter.send(MainConfig.ON_GAMEMODE_DELAY);
+
         }
     }
 

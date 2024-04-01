@@ -8,7 +8,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.crow.config.ConfigLoader;
 import com.crow.events.CommandE;
 import com.crow.events.PlayerE;
-import sun.security.krb5.Config;
 
 public class CrowMail extends JavaPlugin {
 

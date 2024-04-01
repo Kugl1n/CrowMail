@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
-import com.crow.config.ConfigLoader;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -30,6 +29,7 @@ public class LetterCreator {
      * - Super
      */
     // TODO: se necessário, alterar para OfflinePlayer
+
     public static String getLetterOwner(Player player){
         ItemStack book = player.getInventory().getItemInMainHand();
         BookMeta bm = (BookMeta) book.getItemMeta();
@@ -92,9 +92,6 @@ public class LetterCreator {
         String dateNow = formatter.format(currentDate.getTime());
 
         lore.add(ChatColor.DARK_GRAY + dateNow);
-
-
-
 
         // Set the lore and item meta to the Book
         bm.setLore(lore);
