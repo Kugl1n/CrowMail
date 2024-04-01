@@ -19,6 +19,7 @@ public class MessageManager {
     public static String LETTER_SENT;
     public static String LETTER_RECIEVED;
     public static String SHRED_LETTER;
+    public static String SHRED_ALL_LETTERS;
     public static String PIGEON_ARRIVED;
     public static String CROW_ARRIVED;
 
@@ -26,6 +27,8 @@ public class MessageManager {
     public static String ENABLE_LETTERS;
     public static String IN_BLOCKED_GAMEMODE;
     public static String IN_BLOCKED_MODE;
+    public static String RELOAD_SUCCESS;
+
 
     /**
      * Reloads messages from messages.yml
@@ -46,6 +49,7 @@ public class MessageManager {
         LETTER_SENT = PLUGIN_PREFIX + format(config.getConfig().getString("letter-sent"));
         LETTER_RECIEVED = PLUGIN_PREFIX + format(config.getConfig().getString("letter-recieved"));
         SHRED_LETTER = PLUGIN_PREFIX + format(config.getConfig().getString("shred-letter"));
+        SHRED_ALL_LETTERS = PLUGIN_PREFIX + format(config.getConfig().getString("shred-all-letters"));
         PIGEON_ARRIVED = PLUGIN_PREFIX + format(config.getConfig().getString("pigeon-arrived"));
         CROW_ARRIVED = PLUGIN_PREFIX + format(config.getConfig().getString("crow-arrived"));
 
@@ -53,12 +57,13 @@ public class MessageManager {
         ENABLE_LETTERS = PLUGIN_PREFIX + format(config.getConfig().getString("enable-letters"));
         IN_BLOCKED_GAMEMODE = PLUGIN_PREFIX + format(config.getConfig().getString("in-blocked-gamemode"));
         IN_BLOCKED_MODE = PLUGIN_PREFIX + format(config.getConfig().getString("in-blocked-mode"));
+        RELOAD_SUCCESS = PLUGIN_PREFIX + format(config.getConfig().getString("reload-success"));
     }
 
 
     /**
      *
-     * @param msg mensagem a ser formatada
+     * @param msg Message to be formatted
      * @return ChatColor
      * @author Super
      */

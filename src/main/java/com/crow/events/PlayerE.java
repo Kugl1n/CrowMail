@@ -19,8 +19,6 @@ import com.crow.letter.OutgoingLetter;
 
 public class PlayerE implements Listener{
 
-    public static ArrayList<Crow> letterToSend;
-
     @EventHandler
     public void onEntityInteract(PlayerInteractAtEntityEvent interactEvent){
         

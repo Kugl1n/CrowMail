@@ -39,6 +39,7 @@
                 <includes>
                     <include>plugin.yml</include>
                     <include>messages.yml</include>
+                    <include>outgoing.yml</include>
                     <include>config.yml</include>
                 </includes>
             </resource>

@@ -9,6 +9,10 @@ api-version: '1.20'
 prefix: crowMail
 
 commands:
+  crowmail:
+    description: Main command
+    usage: /<command>
+
   carta:
     description: Writes a letter
     usage: /<command>

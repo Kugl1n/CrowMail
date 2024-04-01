@@ -1,7 +1,9 @@
 package com.crow.events;
 
+import com.crow.config.ConfigLoader;
 import com.crow.config.MainConfig;
 import com.crow.config.MessageManager;
+import com.crow.config.OutgoingManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -43,7 +45,11 @@ public class CommandE implements CommandExecutor{
 
                     break;
 
-                // Comando pra checar quem escreveu a carta - Super
+                /**
+                 * Comando que retorna o usuário que escreveu uma carta
+                 *
+                 * @author Super
+                 */
                 case "infocarta":
                     if (args.length == 0){
                         if (LetterChecker.isHoldingLetter(player)){
@@ -91,11 +97,11 @@ public class CommandE implements CommandExecutor{
                         if (reciever.isOnline() && ( player.getWorld() == ((Player) reciever).getWorld())) {
 
                             double distance = player.getLocation().distance(((Player) reciever).getLocation());
-                            new OutgoingLetter(player, letter, distance);
+                            new OutgoingLetter(reciever, letter, distance);
                         }
 
                         else
-                            new OutgoingLetter(player, letter, MainConfig.DIFFERENT_DIMENSION_DELAY);
+                            new OutgoingLetter(reciever, letter, MainConfig.DIFFERENT_DIMENSION_DELAY);
 
 
                         player.getInventory().getItemInMainHand().setAmount(0);
@@ -122,7 +128,7 @@ public class CommandE implements CommandExecutor{
                             if (LetterChecker.isValidLetter(item)) 
                                 item.setAmount(0);
                         }
-                        player.sendMessage(MessageManager.SHRED_LETTER);
+                        player.sendMessage(MessageManager.SHRED_ALL_LETTERS);
                     }
 
                     break;
@@ -144,6 +150,32 @@ public class CommandE implements CommandExecutor{
                         OutgoingLetter.blockedPlayers.add(player);
                     }
 
+                    break;
+
+                case "cm":
+                case "crowmail":
+                    if (args.length == 1){
+                        if (args[0].toLowerCase().equals("reload")) {
+                            if (player.hasPermission("crow.reload")) {
+                                // possivelmente vai dar problema com o Outgoing, deve ter que fazer um outgoing Manager
+//                              Crow.getCrows().keySet().forEach(Entity::remove);
+//                              Crow.getCrows().clear();
+
+                                OutgoingManager.saveLetters();
+
+                                ConfigLoader.getOutgoingConfig().reloadConfig();
+                                ConfigLoader.getMessageConfig().reloadConfig();
+                                ConfigLoader.getMainConfig().reloadConfig();
+
+                                MainConfig.loadConfigs();
+                                MessageManager.reloadMessages();
+
+
+
+                                player.sendMessage(MessageManager.RELOAD_SUCCESS);
+                            }
+                        }
+                    }
                     break;
 
             }

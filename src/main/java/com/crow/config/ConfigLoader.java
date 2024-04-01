@@ -11,9 +11,13 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.crow.CrowMail;
 
-public class ConfigLoader {
+/**
+ * Manager for all configuration files
+ *
+ * @author Super
+ */
 
-//Reestruturei as configurações para o MainConfig e MessageManager, deixando essa classe somente como um Loader - Super
+public class ConfigLoader {
 
     private static CrowMail plugin = CrowMail.getInstance();
 
@@ -22,10 +26,14 @@ public class ConfigLoader {
 
     private static ConfigLoader message = new ConfigLoader("messages.yml");
 
+    private static ConfigLoader outgoing = new ConfigLoader("outgoing.yml");
+
 
     public static ConfigLoader getMainConfig() { return main; }
 
     public static ConfigLoader getMessageConfig() { return message; }
+
+    public static ConfigLoader getOutgoingConfig() { return outgoing; }
 
 
     private File configFile;
@@ -45,7 +53,6 @@ public class ConfigLoader {
      * @author Super
      */
 
-    //TODO: adicionar comando de /reload
     public void reloadConfig() {
         if (configFile == null) {
             configFile = new File(plugin.getDataFolder(), filename);
@@ -65,7 +72,7 @@ public class ConfigLoader {
     }
 
     /**
-     * Deve ser usado depois do getMainConfig, ou getMessageConfig
+     * Should be used after the getMainConfig, or getMessageConfig methods
      *
      * @return {@code YamlConfiguration}
      * @author Super

@@ -1,6 +1,8 @@
 package com.crow;
 import com.crow.config.MainConfig;
 import com.crow.config.MessageManager;
+import com.crow.config.OutgoingManager;
+import com.crow.events.CommandTabComplete;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,12 +28,14 @@ public class CrowMail extends JavaPlugin {
 
         //Saves and creates the config.yml and messages.yml, if they don't exist
         ConfigLoader.getMessageConfig().saveDefaultConfig();
+        ConfigLoader.getOutgoingConfig().saveDefaultConfig();
         ConfigLoader.getMainConfig().saveDefaultConfig();
 
 
 
         //Loads the config.yml and messages.yml files' content
         MainConfig.loadConfigs();
+        //OutgoingManager.();
         MessageManager.reloadMessages();
 
         getLogger().info("CrowMail Enabled");
@@ -48,6 +52,10 @@ public class CrowMail extends JavaPlugin {
         getCommand("infocarta").setExecutor(commandE);
         getCommand("rasgar").setExecutor(commandE);
         getCommand("bloquearcartas").setExecutor(commandE);
+        getCommand("crowmail").setExecutor(commandE);
+
+        getCommand("crowmail").setTabCompleter(new CommandTabComplete());
+        getCommand("rasgar").setTabCompleter(new CommandTabComplete());
 
         // EventHandler Atribution
         pluginManager.registerEvents(new PlayerE(), plugin);
@@ -57,6 +65,10 @@ public class CrowMail extends JavaPlugin {
     @Override
     public void onDisable() {
         getLogger().info("CrowMail Disabled");
+        OutgoingManager.saveLetters();
+
+
+
 
         plugin = null;
     }

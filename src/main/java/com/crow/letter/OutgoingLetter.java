@@ -1,8 +1,6 @@
 package com.crow.letter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import com.crow.config.MainConfig;
 
@@ -19,6 +17,10 @@ import net.md_5.bungee.api.ChatColor;
 
 public class OutgoingLetter {
 
+
+
+    public static ArrayList<OutgoingLetter> getOutgoingLetters() { return outgoingLetters ; }
+
     public static ArrayList<OutgoingLetter> outgoingLetters = new ArrayList<>();
     public static List<Player> blockedPlayers = new ArrayList<>();
 
@@ -30,14 +32,33 @@ public class OutgoingLetter {
     private Crow crow;
     private boolean isDelivered;
 
+    public OutgoingLetter getOutgoingLetter() { return outgoingLetter; }
+
+    private OutgoingLetter outgoingLetter;
+
+
+    public static HashMap<UUID, ArrayList<ItemStack>> converArrayToHash() {
+
+        HashMap<UUID, ArrayList<ItemStack>> hashMap = new HashMap<>();
+        for (OutgoingLetter outLetter : outgoingLetters) {
+
+            if (hashMap.get(outLetter.getPlayerUUID()) == null)
+                hashMap.put(outLetter.getPlayerUUID(), new ArrayList<>());
+            hashMap.get(outLetter.getPlayerUUID()).add(outLetter.getLetter());
+        }
+
+        return hashMap;
+    }
+
     public OutgoingLetter(OfflinePlayer player, ItemStack letter, double distance) {
+
+        outgoingLetter = this;
 
         this.player = player;
         this.letter = letter;
         this.distance = distance;
         this.crow = null;
         this.isDelivered = false;
-
         this.playerUUID = player.getUniqueId();
 
         // Add destination player to lore
