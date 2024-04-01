@@ -3,6 +3,7 @@ package com.crow.events;
 import com.crow.config.MainConfig;
 import com.crow.config.MessageManager;
 
+import java.util.ArrayList;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -22,28 +23,32 @@ public class PlayerE implements Listener{
 
         Player destinationPlayer = interactEvent.getPlayer();
 
-        OutgoingLetter outgoingLetter1 = OutgoingLetter.isPlayerIn(destinationPlayer);
-        OutgoingLetter outgoingLetter2 = OutgoingLetter.isCrowIn(entity);
+        ArrayList<OutgoingLetter> outgoingLettersForPlayers = OutgoingLetter.isPlayerIn(destinationPlayer);
+        OutgoingLetter outgoingLetterCrow = OutgoingLetter.isCrowIn(entity);
 
-        if (outgoingLetter1 == outgoingLetter2) {
+        for (OutgoingLetter outgoingLetter : outgoingLettersForPlayers) { 
+            
+            if (outgoingLetter == outgoingLetterCrow) {
+                
+                Crow crow = outgoingLetter.getCrow();
 
-            Crow crow = outgoingLetter1.getCrow();
+                if (destinationPlayer.getInventory().firstEmpty() == -1) {
 
-            if (destinationPlayer.getInventory().firstEmpty() == -1) {
-
-                destinationPlayer.sendMessage(MessageManager.INVENTORY_FULL);
-                crow.playParticleBad();
+                    destinationPlayer.sendMessage(MessageManager.INVENTORY_FULL);
+                    crow.playParticleBad();
+                    crow.remove();
+                    return;
+                }
+    
+                destinationPlayer.getInventory().addItem(outgoingLetter.getLetter());
+                crow.playParticleGood();
+                destinationPlayer.sendMessage(MessageManager.LETTER_RECIEVED);
+                outgoingLetter.setDelivered();
                 crow.remove();
-                return;
+                OutgoingLetter.outgoingLetters.remove(outgoingLetter);
+
+                
             }
-
-            destinationPlayer.getInventory().addItem(outgoingLetter1.getLetter());
-            crow.playParticleGood();
-            destinationPlayer.sendMessage(MessageManager.LETTER_RECIEVED);
-            outgoingLetter1.setDelivered();
-            crow.remove();
-            OutgoingLetter.outgoingLetters.remove(outgoingLetter1);
-
         }
     }
 
@@ -53,14 +58,14 @@ public class PlayerE implements Listener{
         Player player = joinEvent.getPlayer();
 
         if (player.isOnline()) {
-            OutgoingLetter outgoingLetter = OutgoingLetter.isPlayerIn(player);
+
+            ArrayList<OutgoingLetter> outgoingLetters = OutgoingLetter.isPlayerIn(player);
             
-            if (outgoingLetter != null){
+            for (OutgoingLetter outgoingLetter : outgoingLetters) {
                 outgoingLetter.updatePlayer(player);
                 outgoingLetter.send(MainConfig.ON_JOIN_DELAY);
             }
         }
-
     }
 
     @EventHandler
@@ -68,8 +73,9 @@ public class PlayerE implements Listener{
 
         Player player = event.getPlayer();
 
-        OutgoingLetter outgoingLetter = OutgoingLetter.isPlayerIn(player);
-        if (outgoingLetter != null) {
+        ArrayList<OutgoingLetter> outgoingLetters = OutgoingLetter.isPlayerIn(player);
+        
+        for (OutgoingLetter outgoingLetter : outgoingLetters) {
             outgoingLetter.removeCrow();
         }
     }
@@ -80,12 +86,11 @@ public class PlayerE implements Listener{
 
         if (MainConfig.BLOCKED_WORLDS.contains(player.getWorld())){
 
-            OutgoingLetter outgoingLetter = OutgoingLetter.isPlayerIn(player);
-            if (outgoingLetter != null)
+            ArrayList<OutgoingLetter> outgoingLetters = OutgoingLetter.isPlayerIn(player);
+            for (OutgoingLetter outgoingLetter : outgoingLetters) {
                 outgoingLetter.send(MainConfig.ON_WORLD_CHANGE_DELAY);
-
+            }
         }
-
     }
 
     @EventHandler
@@ -95,11 +100,10 @@ public class PlayerE implements Listener{
 
         if (player.isOnline() && MainConfig.BLOCKED_GAMEMODES.contains(player.getGameMode())) {
 
-            OutgoingLetter outgoingLetter = OutgoingLetter.isPlayerIn(player);
-            if (outgoingLetter != null)
+            ArrayList<OutgoingLetter> outgoingLetters = OutgoingLetter.isPlayerIn(player);
+            for (OutgoingLetter outgoingLetter : outgoingLetters) {
                 outgoingLetter.send(MainConfig.ON_GAMEMODE_DELAY);
-
+            }     
         }
     }
-
 }

@@ -154,17 +154,19 @@ public class OutgoingLetter {
         player = newPlayer;
     }
 
-    public static OutgoingLetter isPlayerIn(Player player){
+    public static ArrayList<OutgoingLetter> isPlayerIn(Player player){
+
+        ArrayList<OutgoingLetter> outgoingLettersForPlayer = new ArrayList<>();
 
         UUID otherPlayerUUID = player.getUniqueId();
 
         for (OutgoingLetter outgoingLetter : outgoingLetters) {
 
             if (outgoingLetter.getPlayerUUID().equals(otherPlayerUUID)){
-                return outgoingLetter;
+                outgoingLettersForPlayer.add(outgoingLetter);
             }      
         }
-        return null;
+        return outgoingLettersForPlayer;
     }
 
     public static OutgoingLetter isCrowIn(Entity crow) {

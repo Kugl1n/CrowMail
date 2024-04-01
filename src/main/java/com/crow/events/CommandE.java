@@ -4,6 +4,9 @@ import com.crow.config.ConfigLoader;
 import com.crow.config.MainConfig;
 import com.crow.config.MessageManager;
 import com.crow.config.OutgoingManager;
+
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -136,13 +139,12 @@ public class CommandE implements CommandExecutor{
 
                     if (OutgoingLetter.blockedPlayers.contains(player)){
                         player.sendMessage(MessageManager.ENABLE_LETTERS);
-                        OutgoingLetter.blockedPlayers.remove(player);
-                        
-                        OutgoingLetter outgoingLetter = OutgoingLetter.isPlayerIn(player);
-                        if (outgoingLetter != null) {
-                            outgoingLetter.firstSend();
-                        }
 
+                        OutgoingLetter.blockedPlayers.remove(player);
+
+                        ArrayList<OutgoingLetter> outgoingLetters = OutgoingLetter.isPlayerIn(player);
+                        for (OutgoingLetter outgoingLetter : outgoingLetters)
+                            outgoingLetter.send(MainConfig.ON_GAMEMODE_DELAY);
                     }
                     else {
                         player.sendMessage(MessageManager.DISABLE_LETTERS);
