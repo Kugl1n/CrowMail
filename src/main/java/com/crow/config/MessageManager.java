@@ -24,6 +24,8 @@ public class MessageManager {
 
     public static String DISABLE_LETTERS;
     public static String ENABLE_LETTERS;
+    public static String IN_BLOCKED_GAMEMODE;
+    public static String IN_BLOCKED_MODE;
 
     /**
      * Reloads messages from messages.yml
@@ -49,7 +51,8 @@ public class MessageManager {
 
         DISABLE_LETTERS = PLUGIN_PREFIX + format(config.getConfig().getString("disable-letters"));
         ENABLE_LETTERS = PLUGIN_PREFIX + format(config.getConfig().getString("enable-letters"));
-
+        IN_BLOCKED_GAMEMODE = PLUGIN_PREFIX + format(config.getConfig().getString("in-blocked-gamemode"));
+        IN_BLOCKED_MODE = PLUGIN_PREFIX + format(config.getConfig().getString("in-blocked-mode"));
     }
 
 
