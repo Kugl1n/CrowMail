@@ -8,9 +8,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
+
+/**
+ * Manages Letter data between outgoing.yml and ArrayLists.
+ *
+ * @author Super
+ */
 public class OutgoingManager {
 
     public static final ConfigLoader outgoingConfig = ConfigLoader.getOutgoingConfig();
+
+    public static HashMap<UUID, ArrayList<ItemStack>> getSavedLetters() { return outgoing; }
 
     public static HashMap<UUID, ArrayList<ItemStack>> outgoing = new HashMap<>();
 
@@ -31,7 +39,7 @@ public class OutgoingManager {
     }
 
     /**
-     * Gets the stored outgoing letters in outgoing.yml and loads them into the HashMap
+     * Gets the stored outgoing letters in outgoing.yml and loads them into the HashMap.
      *
      * @author Super
      */
@@ -41,6 +49,7 @@ public class OutgoingManager {
             outgoing.put(UUID.fromString(key), (ArrayList<ItemStack>) outgoingConfig.getConfig().getList(key));
 
         }
+
     }
 
 

@@ -2,6 +2,12 @@ package com.crow.config;
 
 import org.bukkit.ChatColor;
 
+
+/**
+ * Stores and loads message data from messages.yml
+ *
+ * @author Super
+ */
 public class MessageManager {
 
 
@@ -39,7 +45,6 @@ public class MessageManager {
      *
      * @author Super
      */
-
     public static void reloadMessages() {
 
         PLUGIN_PREFIX = format(config.getConfig().getString("plugin-prefix"));

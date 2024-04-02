@@ -10,16 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Where all the values for config.yml are stored and loaded
+ * Where all the data for config.yml is stored and loaded
  *
  * @author Super
  */
-
 public class MainConfig {
 
     public static int CEM_LETTER;
     public static int CEM_ANONIMOUS_LETTER;
-
 
     public static Parrot.Variant PIGEON_VARIANT;
     public static Parrot.Variant CROW_VARIANT;
@@ -37,7 +35,7 @@ public class MainConfig {
     public static int DIFFERENT_DIMENSION_DELAY;
 
     /**
-     * Loads options from the config.yml file
+     * Loads/updates string values from the config.yml file
      *
      * @author Kuglin
      */

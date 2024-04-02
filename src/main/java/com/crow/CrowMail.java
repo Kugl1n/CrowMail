@@ -3,6 +3,7 @@ import com.crow.config.MainConfig;
 import com.crow.config.MessageManager;
 import com.crow.config.OutgoingManager;
 import com.crow.events.CommandTabComplete;
+import com.crow.letter.OutgoingLetter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,16 +28,17 @@ public class CrowMail extends JavaPlugin {
         plugin = this;
 
         //Saves and creates the config.yml and messages.yml, if they don't exist
-        ConfigLoader.getMessageConfig().saveDefaultConfig();
-        ConfigLoader.getOutgoingConfig().saveDefaultConfig();
-        ConfigLoader.getMainConfig().saveDefaultConfig();
-
-
+        ConfigLoader.getOutgoingConfig().reloadConfig();
+        ConfigLoader.getMessageConfig().reloadConfig();
+        ConfigLoader.getMainConfig().reloadConfig();
 
         //Loads the config.yml and messages.yml files' content
         MainConfig.loadConfigs();
-        OutgoingManager.loadLetters();
         MessageManager.reloadMessages();
+        OutgoingManager.loadLetters();
+
+        OutgoingLetter.convertSavedLetters();
+
 
         getLogger().info("CrowMail Enabled");
         

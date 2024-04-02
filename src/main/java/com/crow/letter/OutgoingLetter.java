@@ -5,6 +5,8 @@ import java.util.*;
 import com.crow.config.MainConfig;
 
 import com.crow.config.MessageManager;
+import com.crow.config.OutgoingManager;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -16,13 +18,18 @@ import com.crow.CrowMail;
 import com.crow.crow.Crow;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * Contains all methods related to letter sending, and outgoing queue.
+ *
+ * @author Kuglin
+ */
 public class OutgoingLetter {
-
-
 
     public static ArrayList<OutgoingLetter> getOutgoingLetters() { return outgoingLetters ; }
 
     public static ArrayList<OutgoingLetter> outgoingLetters = new ArrayList<>();
+    private OutgoingLetter outgoingLetter;
+
     public static List<Player> blockedPlayers = new ArrayList<>();
 
     private OfflinePlayer player;
@@ -35,9 +42,32 @@ public class OutgoingLetter {
 
     public OutgoingLetter getOutgoingLetter() { return outgoingLetter; }
 
-    private OutgoingLetter outgoingLetter;
+    /**
+     * Takes the currently saved letters and from the HashMap and loads them into the ArrayList.
+     * Made for onEnable()
+     * For standard loading method:
+     * @see OutgoingManager OutgoinManager.loadLetters()
+     * @author Super
+     */
+    public static void convertSavedLetters(){
+        HashMap<UUID, ArrayList<ItemStack>> savedLetters = OutgoingManager.getSavedLetters();
 
+        savedLetters.forEach((player, letter) -> {
+            for (ItemStack itemStack : letter) {
 
+                new OutgoingLetter(Bukkit.getOfflinePlayer(player), itemStack, MainConfig.RESEND_DELAY);
+
+            }
+        });
+
+    }
+
+    /**
+     * Takes ArrayList outgoingLetters content and converts it into a HashMap
+     *
+     * @return Converted outgoingLetters HashMap
+     * @author Kuglin
+     */
     public static HashMap<UUID, ArrayList<ItemStack>> convertArrayToHash() {
 
         HashMap<UUID, ArrayList<ItemStack>> hashMap = new HashMap<>();
@@ -51,6 +81,14 @@ public class OutgoingLetter {
         return hashMap;
     }
 
+    /**
+     * Creates a letter and stores it on the outgoing list
+     *
+     * @param player OfflinePlayer Receiver
+     * @param letter ItemStack Letter to be sent
+     * @param distance double Distance between Sender and Receiver
+     * @author Kuglin
+     */
     public OutgoingLetter(OfflinePlayer player, ItemStack letter, double distance) {
 
         outgoingLetter = this;
@@ -73,10 +111,9 @@ public class OutgoingLetter {
         itemMeta.setLore(lore);
         this.letter.setItemMeta(itemMeta);
 
-        outgoingLetters.add(this);
+        if (!outgoingLetters.contains(this)) outgoingLetters.add(this);
 
-        if (player.isOnline())
-            firstSend();
+        if (player.isOnline()) firstSend();
 
     }
 
@@ -84,6 +121,12 @@ public class OutgoingLetter {
         send(((int)(distance)) * MainConfig.DISTANCE_MODIFIER);
     }
 
+    /**
+     * Sends out an OutgoingLetter
+     *
+     * @param time int Ticks before sending
+     * @author Kuglin
+     */
     public void send(int time) {
 
         new BukkitRunnable() {
@@ -110,6 +153,11 @@ public class OutgoingLetter {
 
     }
 
+    /**
+     * Removes a crow Entity, and resends it if a letter wasn't received
+     *
+     * @author Kuglin
+     */
     public void despawnCrow() {
 
         new BukkitRunnable() {
@@ -127,6 +175,11 @@ public class OutgoingLetter {
 
     }
 
+    /**
+     * Destroys a crow Entity
+     *
+     * @author Kuglin
+     */
     public void removeCrow(){
 
         crow.remove();
@@ -169,6 +222,13 @@ public class OutgoingLetter {
         return outgoingLettersForPlayer;
     }
 
+    /**
+     * Checks if a crow belongs to an OutgoingLetter
+     *
+     * @param crow Crow Entity
+     * @return {@code OutgoingLetter}
+     * @author Kuglin
+     */
     public static OutgoingLetter isCrowIn(Entity crow) {
 
         for (OutgoingLetter outgoingLetter : outgoingLetters) {
