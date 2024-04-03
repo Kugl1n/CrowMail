@@ -4,6 +4,7 @@ import com.crow.config.MainConfig;
 import com.crow.config.MessageManager;
 
 import com.crow.letter.OutgoingLetter;
+
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -22,6 +23,11 @@ public class Crow {
 
         // Spawn the Entity at Player position
         Location location = reciever.getLocation();
+
+        location = getNewLocation(location, location.getYaw(), 1).add(0, 1, 0);
+        if (!location.getBlock().isEmpty())
+            location = reciever.getLocation().add(0, 1, 0);
+
         crowEntity = (Parrot) reciever.getWorld().spawnEntity(location, EntityType.PARROT);
         reciever.playSound(reciever.getLocation(), Sound.ENTITY_PARROT_FLY, 1.0F, 1.0F);
 
@@ -76,6 +82,16 @@ public class Crow {
         crowEntity.getWorld().spawnParticle(Particle.VILLAGER_ANGRY, crowEntity.getLocation(), 10, 0.3, 0.3, 0.3, 2);
         player.playSound(player.getLocation(), Sound.ENTITY_PARROT_IMITATE_PILLAGER, 1.0F, 1.0F);
 
+    }
+
+    public static Location getNewLocation(Location loc, double angulo, double distancia) {
+
+        angulo = Math.toRadians(angulo);
+
+        loc.setX(loc.getX() + (distancia * Math.cos(angulo)));
+        loc.setZ(loc.getZ() + (distancia * Math.sin(angulo)));
+
+        return loc;
     }
 
 }
