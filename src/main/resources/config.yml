@@ -1,26 +1,48 @@
-distance-modifier: 1
-despawn-delay: 100
-resend-delay: 100
-different-dimension-delay: 1000
+# All times and delays are in ticks.
+# 20 ticks = 1 second
 
-on-join-delay: 100
-on-gamemode-delay: 100
-on-world-change-delay: 100
-on-enable-letters-delay: 100
+# Multiplicative modifier for the letters' time to arrive
+distance-modifier: 1.0 # 1.0 - standard
 
-# CustomModelData da carta comum
+# Time it takes for a parrot to be removed after it spawns
+despawn-delay: 100 # 5 seconds
+
+# Time before a parrot is respawned, when a letter is ignored
+resend-delay: 100 # 5 seconds
+
+# Time to arrive when a receiver is on a different dimension then the sender
+different-dimension-delay: 1200 # 60 seconds
+
+
+# The least amount of time a letter can take to arrive
+minimum-send-time: 100 # 5 seconds
+
+
+# Delay before a letter will be sent when a user joins the server
+on-join-delay: 200 # 10 seconds
+
+# Delay before a letter will be sent when a user exits a blocked gamemode
+on-gamemode-delay: 100 # 5 seconds
+
+# Delay before a letter will be sent when a user exits a blocked world
+on-world-change-delay: 200 # 10 seconds
+
+# Delay before a letter will be sent when a user enables receiving letters
+on-enable-letters-delay: 100 # 5 seconds
+
+
+# CustomModelData of regular letters
 cem-letter: 100
-
-# CustomModelData da carta anônima
+# CustomModelData of anonymous letters
 cem-anonimous-letter: 101
-
-# Variante do pássaro das cartas comuns
+# Parrot variant for regular letters
 pigeon-variant: BLUE
-
-# Variante do pássaro das cartas anônimas
+# Parrot variant for anonymous letters
 crow-variant: GRAY
 
 
+# List of gamemodes a user can't receive a letter on
 blocked-gamemodes: [SPECTATOR]
+# List of worlds a user can't receive a letter on
 blocked-worlds: []
 

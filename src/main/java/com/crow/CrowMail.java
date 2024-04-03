@@ -2,6 +2,7 @@ package com.crow;
 import com.crow.config.MainConfig;
 import com.crow.config.MessageManager;
 import com.crow.config.OutgoingManager;
+import com.crow.crow.Crow;
 import com.crow.events.CommandTabComplete;
 import com.crow.letter.OutgoingLetter;
 import org.bukkit.Bukkit;
@@ -69,7 +70,7 @@ public class CrowMail extends JavaPlugin {
     public void onDisable() {
         getLogger().info("CrowMail Disabled");
         OutgoingManager.saveLetters();
-
+        Crow.removeAllCrows();
 
         plugin = null;
     }

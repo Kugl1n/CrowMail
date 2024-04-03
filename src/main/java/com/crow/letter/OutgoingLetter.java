@@ -118,16 +118,16 @@ public class OutgoingLetter {
     }
 
     public void firstSend(){
-        send(((int)(distance)) * MainConfig.DISTANCE_MODIFIER);
+        send(distance * MainConfig.DISTANCE_MODIFIER);
     }
 
     /**
      * Sends out an OutgoingLetter
      *
-     * @param time int Ticks before sending
+     * @param time double Ticks before sending
      * @author Kuglin
      */
-    public void send(int time) {
+    public void send(double time) {
 
         new BukkitRunnable() {
             @Override
@@ -149,7 +149,7 @@ public class OutgoingLetter {
                 despawnCrow();
             }
 
-        }.runTaskLater(CrowMail.getInstance(), time);
+        }.runTaskLater(CrowMail.getInstance(), MainConfig.MINIMUM_SEND_TIME + (int) time);
 
     }
 

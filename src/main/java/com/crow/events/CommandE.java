@@ -7,6 +7,7 @@ import com.crow.config.OutgoingManager;
 
 import java.util.ArrayList;
 
+import com.crow.crow.Crow;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -48,10 +49,7 @@ public class CommandE implements CommandExecutor{
 
                     break;
 
-                /**
-                 * Comando que retorna o usuário que escreveu uma carta
-                 *
-                 */
+                //Comando que retorna o usuário que escreveu uma carta
                 case "infocarta":
                     if (args.length == 0){
                         if (LetterChecker.isHoldingLetter(player)){
@@ -156,9 +154,10 @@ public class CommandE implements CommandExecutor{
                 case "cm":
                 case "crowmail":
                     if (args.length == 1){
-                        if (args[0].toLowerCase().equals("reload")) {
+                        if (args[0].equalsIgnoreCase("reload")) {
                             if (player.hasPermission("crow.reload")) {
                                 OutgoingManager.saveLetters();
+                                Crow.removeAllCrows();
 
                                 ConfigLoader.getOutgoingConfig().reloadConfig();
                                 ConfigLoader.getMessageConfig().reloadConfig();
@@ -180,7 +179,7 @@ public class CommandE implements CommandExecutor{
                     break;
 
             }
-        };
+        }
         return true;
     }
 

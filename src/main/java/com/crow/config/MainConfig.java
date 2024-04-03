@@ -25,7 +25,7 @@ public class MainConfig {
     public static List<GameMode> BLOCKED_GAMEMODES;
     public static List<World> BLOCKED_WORLDS;
 
-    public static int DISTANCE_MODIFIER;
+    public static double DISTANCE_MODIFIER;
     public static int DESPAWN_DELAY;
     public static int RESEND_DELAY;
     public static int ON_JOIN_DELAY;
@@ -33,6 +33,7 @@ public class MainConfig {
     public static int ON_WORLD_CHANGE_DELAY;
     public static int ON_ENABLE_LETTERS_DELAY;
     public static int DIFFERENT_DIMENSION_DELAY;
+    public static int MINIMUM_SEND_TIME;
 
     /**
      * Loads/updates string values from the config.yml file
@@ -53,7 +54,7 @@ public class MainConfig {
         BLOCKED_GAMEMODES = new ArrayList<>();
         BLOCKED_WORLDS = new ArrayList<>();
 
-        DISTANCE_MODIFIER = config.getInt("receive-delay");
+        DISTANCE_MODIFIER = config.getDouble("receive-delay");
         DESPAWN_DELAY = config.getInt("despawn-delay");
         RESEND_DELAY = config.getInt("resend-delay");
         DIFFERENT_DIMENSION_DELAY = config.getInt("different-dimension-delay");
@@ -62,6 +63,7 @@ public class MainConfig {
         ON_GAMEMODE_DELAY = config.getInt("on-gamemode-delay");
         ON_WORLD_CHANGE_DELAY = config.getInt("on-world-change-delay");
         ON_ENABLE_LETTERS_DELAY = config.getInt("on-enable-letters-delay");
+        MINIMUM_SEND_TIME = config.getInt("minimum-send-time");
 
         List<String> modeStrings = config.getStringList("blocked-gamemodes");
         if (modeStrings.isEmpty()) {

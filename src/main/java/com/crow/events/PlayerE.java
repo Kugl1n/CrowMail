@@ -35,13 +35,13 @@ public class PlayerE implements Listener{
                 if (destinationPlayer.getInventory().firstEmpty() == -1) {
 
                     destinationPlayer.sendMessage(MessageManager.INVENTORY_FULL);
-                    crow.playParticleBad();
+                    crow.playFeedbackBad(destinationPlayer);
                     crow.remove();
                     return;
                 }
     
                 destinationPlayer.getInventory().addItem(outgoingLetter.getLetter());
-                crow.playParticleGood();
+                crow.playFeedbackGood(destinationPlayer);
                 destinationPlayer.sendMessage(MessageManager.LETTER_RECIEVED);
                 outgoingLetter.setDelivered();
                 crow.remove();
