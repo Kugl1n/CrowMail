@@ -18,6 +18,7 @@ public class MessageManager {
     public static String INVENTORY_FULL;
     public static String LETTER_CREATED;
     public static String NOT_HOLDING_LETTER;
+    public static String NOT_HOLDING_OWN_LETTER;
     public static String WRITTEN_BY;
     public static String INCORRECT_USAGE;
     public static String ADD_RECIEVER;
@@ -51,6 +52,7 @@ public class MessageManager {
         INVENTORY_FULL = PLUGIN_PREFIX + format(config.getConfig().getString("inventory-full"));
         LETTER_CREATED = PLUGIN_PREFIX + format(config.getConfig().getString("letter-created"));
         NOT_HOLDING_LETTER = PLUGIN_PREFIX + format(config.getConfig().getString("not-holding-letter"));
+        NOT_HOLDING_OWN_LETTER = PLUGIN_PREFIX + format(config.getConfig().getString("not-holding-own-letter"));
         WRITTEN_BY = PLUGIN_PREFIX + format(config.getConfig().getString("written-by"));
         INCORRECT_USAGE = PLUGIN_PREFIX + format(config.getConfig().getString("incorrect-usage"));
         ADD_RECIEVER = PLUGIN_PREFIX +format(config.getConfig().getString("add-reciever"));

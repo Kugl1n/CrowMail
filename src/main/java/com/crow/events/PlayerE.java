@@ -1,5 +1,6 @@
 package com.crow.events;
 
+import com.crow.config.ConfigLoader;
 import com.crow.config.MainConfig;
 import com.crow.config.MessageManager;
 
@@ -13,6 +14,7 @@ import org.bukkit.event.player.*;
 
 import com.crow.crow.Crow;
 import com.crow.letter.OutgoingLetter;
+
 
 public class PlayerE implements Listener{
 
@@ -45,9 +47,9 @@ public class PlayerE implements Listener{
                 destinationPlayer.sendMessage(MessageManager.LETTER_RECIEVED);
                 outgoingLetter.setDelivered();
                 crow.remove();
+                System.out.println(ConfigLoader.getOutgoingConfig().getConfig().getKeys(false));
                 OutgoingLetter.outgoingLetters.remove(outgoingLetter);
 
-                
             }
         }
     }

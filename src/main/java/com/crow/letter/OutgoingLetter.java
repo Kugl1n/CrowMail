@@ -42,25 +42,8 @@ public class OutgoingLetter {
 
     public OutgoingLetter getOutgoingLetter() { return outgoingLetter; }
 
-    /**
-     * Takes the currently saved letters and from the HashMap and loads them into the ArrayList.
-     * Made for onEnable()
-     * For standard loading method:
-     * @see OutgoingManager OutgoinManager.loadLetters()
-     * @author Super
-     */
-    public static void convertSavedLetters(){
-        HashMap<UUID, ArrayList<ItemStack>> savedLetters = OutgoingManager.getSavedLetters();
+    //private static HashMap<UUID, ArrayList<ItemStack>> savedLetters = OutgoingManager.getSavedLetters();
 
-        savedLetters.forEach((player, letter) -> {
-            for (ItemStack itemStack : letter) {
-
-                new OutgoingLetter(Bukkit.getOfflinePlayer(player), itemStack, MainConfig.RESEND_DELAY);
-
-            }
-        });
-
-    }
 
     /**
      * Takes ArrayList outgoingLetters content and converts it into a HashMap
@@ -71,13 +54,14 @@ public class OutgoingLetter {
     public static HashMap<UUID, ArrayList<ItemStack>> convertArrayToHash() {
 
         HashMap<UUID, ArrayList<ItemStack>> hashMap = new HashMap<>();
-        for (OutgoingLetter outLetter : outgoingLetters) {
+        if (!outgoingLetters.isEmpty()) {
+            for (OutgoingLetter outLetter : outgoingLetters) {
 
-            if (hashMap.get(outLetter.getPlayerUUID()) == null)
-                hashMap.put(outLetter.getPlayerUUID(), new ArrayList<>());
-            hashMap.get(outLetter.getPlayerUUID()).add(outLetter.getLetter());
+                if (hashMap.get(outLetter.getPlayerUUID()) == null)
+                    hashMap.put(outLetter.getPlayerUUID(), new ArrayList<>());
+                hashMap.get(outLetter.getPlayerUUID()).add(outLetter.getLetter());
+            }
         }
-
         return hashMap;
     }
 
@@ -100,15 +84,17 @@ public class OutgoingLetter {
         this.isDelivered = false;
         this.playerUUID = player.getUniqueId();
 
-        // Add destination player to lore
         ItemMeta itemMeta = this.letter.getItemMeta();
         List<String> lore = itemMeta.getLore();
-        lore.add(ChatColor.DARK_GRAY +"§TDestinatario: " + player.getName());
-        
+
+        if (!LetterChecker.wasSent(letter)) {
+            lore.add(ChatColor.DARK_GRAY +"§TDestinatario: " + player.getName());
+            itemMeta.setLore(lore);
+        }
+
         if (itemMeta.getCustomModelData() == MainConfig.CEM_ANONIMOUS_LETTER)
             anonimous = true;
 
-        itemMeta.setLore(lore);
         this.letter.setItemMeta(itemMeta);
 
         if (!outgoingLetters.contains(this)) outgoingLetters.add(this);

@@ -85,7 +85,7 @@ public class CommandE implements CommandExecutor{
 
                     ItemStack letter = new ItemStack(player.getInventory().getItemInMainHand());
 
-                    if (LetterChecker.isHoldingLetter(player)) {
+                    if (LetterChecker.isHoldingOwnLetter(player)) {
 
                         if (LetterChecker.wasSent(letter)) {
                             player.sendMessage(MessageManager.INVALID_LETTER);
@@ -110,7 +110,7 @@ public class CommandE implements CommandExecutor{
                         break;
                     }
 
-                    player.sendMessage(MessageManager.NOT_HOLDING_LETTER);
+                    player.sendMessage(MessageManager.NOT_HOLDING_OWN_LETTER);
                     break;
 
                 case "rasgar":
