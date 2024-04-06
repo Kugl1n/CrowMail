@@ -16,29 +16,29 @@ commands:
   carta:
     description: Writes a letter
     usage: /<command>
-    permission: crow.carta
+    permission: crowmail.carta
 
   cartaanonima:
     description: Writes an anonymous letter
     usage: /<command>
-    permission: crow.cartaanonima
+    permission: crowmail.cartaanonima
 
   enviar:
     description: Sends a letter
     usage: /<command>
-    permission: crow.enviar
+    permission: crowmail.enviar
 
   infocarta:
     description: Returns the user who wrote a letter
     usage: /<command>
-    permission: crow.infocarta
+    permission: crowmail.infocarta
 
   bloquearcartas:
     description: Blocks the recieving of letters for that user
     usage: /<command>
-    permission: crow.bloquear
+    permission: crowmail.bloquear
 
   rasgar:
     description: Destroys the user's letter in hand
     usage: /<command>
-    permission: crow.rasgar
+    permission: crowmail.rasgar

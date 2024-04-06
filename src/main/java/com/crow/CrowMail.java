@@ -5,6 +5,7 @@ import com.crow.config.OutgoingManager;
 import com.crow.crow.Crow;
 import com.crow.events.CommandTabComplete;
 import org.bukkit.Bukkit;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -43,6 +44,15 @@ public class CrowMail extends JavaPlugin {
 
         // Plugin Manager
         PluginManager pluginManager = Bukkit.getPluginManager();
+
+        pluginManager.addPermission(new Permission("crowmail.carta"));
+        pluginManager.addPermission(new Permission("crowmail.cartaanonima"));
+        pluginManager.addPermission(new Permission("crowmail.enviar"));
+        pluginManager.addPermission(new Permission("crowmail.infocarta"));
+        pluginManager.addPermission(new Permission("crowmail.bloquear"));
+        pluginManager.addPermission(new Permission("crowmail.rasgar"));
+        pluginManager.addPermission(new Permission("crowmail.reload"));
+
 
         // Commands Atribution
         CommandE commandE = new CommandE();
