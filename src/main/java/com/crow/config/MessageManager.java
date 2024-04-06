@@ -1,6 +1,7 @@
 package com.crow.config;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 
 /**
@@ -10,9 +11,7 @@ import org.bukkit.ChatColor;
  */
 public class MessageManager {
 
-
     private static final ConfigLoader config = ConfigLoader.getMessageConfig();
-
 
     public static String PLUGIN_PREFIX;
     public static String INVENTORY_FULL;
@@ -84,6 +83,36 @@ public class MessageManager {
      */
     public static String format(String msg) {
         return ChatColor.translateAlternateColorCodes('&', msg.replace("\\n", "\n"));
+    }
+
+    /**
+     * Builds the /crowmail help command based on the player's permissions
+     * @param player Command sender
+     * @return {@code String} Help Command
+     */
+    public static String getHelpCommand(Player player){
+        StringBuilder builder = new StringBuilder();
+        builder.append(MessageManager.PLUGIN_PREFIX).append("Help").append("\n\n");
+
+        if (player.hasPermission("crowmail.carta")){
+            builder.append(ChatColor.GOLD + "/carta <texto> " + ChatColor.WHITE + "- crowmail.carta").append("\n");
+        }
+        if (player.hasPermission("crowmail.cartaanonima")){
+            builder.append(ChatColor.GOLD + "/cartaanonima <texto> " + ChatColor.WHITE + "- crowmail.cartaanonima").append("\n");
+        }
+        if (player.hasPermission("crowmail.enviar")){
+            builder.append(ChatColor.GOLD + "/enviar <player> " + ChatColor.WHITE + "- crowmail.enviar").append("\n");
+        }
+        if (player.hasPermission("crowmail.infocarta")){
+            builder.append(ChatColor.GOLD + "/infocarta " + ChatColor.WHITE + "- crowmail.infocarta").append("\n");
+        }
+        if (player.hasPermission("crowmail.bloquear")){
+            builder.append(ChatColor.GOLD + "/bloquearcartas " + ChatColor.WHITE + "- crowmail.bloquear").append("\n");
+        }
+        if (player.hasPermission("crowmail.rasgar")){
+            builder.append(ChatColor.GOLD + "/rasgar (todas) " + ChatColor.WHITE + "- crowmail.rasgar").append("\n");
+        }
+        return builder.toString();
     }
 
 }

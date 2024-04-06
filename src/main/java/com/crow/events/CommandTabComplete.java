@@ -22,7 +22,7 @@ public class CommandTabComplete implements TabCompleter {
             if (args.length == 1) {
                 switch (label.toLowerCase()){
                     case "crowmail":
-                        return StringUtil.copyPartialMatches(args[0], Arrays.asList("reload"), new ArrayList<>());
+                        return StringUtil.copyPartialMatches(args[0], Arrays.asList("reload", "help"), new ArrayList<>());
 
                     case "rasgar":
                         return StringUtil.copyPartialMatches(args[0], Arrays.asList("todas"), new ArrayList<>());

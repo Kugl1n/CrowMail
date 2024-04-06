@@ -195,13 +195,16 @@ public class CommandE implements CommandExecutor{
                             } else {
                                 player.sendMessage(MessageManager.ERROR_NO_PERMISSION);
                             }
-                        } else {
-                            player.sendMessage(MessageManager.INCORRECT_USAGE + " /crowmail reload");
                         }
 
-                    }
-                    break;
+                        if (args[0].equalsIgnoreCase("help")){
 
+                            player.sendMessage(MessageManager.getHelpCommand(player));
+
+                        }
+                    }
+
+                    break;
             }
         }
         return true;
